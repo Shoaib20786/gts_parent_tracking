@@ -84,38 +84,6 @@ The location-lost alert is not scripted directly: the provider detects that the
 position hasn't changed for N consecutive ticks — the same rule a real backend
 would apply.
 
-## Scope decisions
-
-The assignment explicitly allows mock/local data and requires no backend,
-authentication, payments, or real GPS — so those are deliberately out of scope.
-Effort went into the parent experience: 3-second comprehension of "is my child
-okay", safety states in plain language, an SOS that is hard to trigger
-accidentally, and a deterministic demo.
-
-No real emergency service or safety team is contacted by the SOS flow — it is
-fully simulated, as permitted by the brief.
-
-## AI tools used
-
-- **Claude Code** (Fable 5): implementation planning, Flutter code generation,
-  the simulation/alert state-machine design, unit tests, debugging (it caught a
-  real bug — `latlong2`'s `Distance()` rounds to whole kilometers by default,
-  which corrupted the route geometry — via the unit tests), and an
-  emulator-driven visual polish pass using screenshots.
-- **ChatGPT**: product/UX discussion and engineering decision review.
-
-All generated code was reviewed; the architecture (Provider, feature-first,
-derived-state simulation) was a deliberate decision, not a default.
-
-## What I would improve with another 1–2 days
-
-- Real-time driver location over WebSocket/MQTT, replacing the mock timeline
-  behind the same provider interface
-- Push safety notifications (FCM) with a backend-triggered SMS fallback
-- Road-snapped routing (OSRM/Google Directions) instead of a hand-drawn polyline
-- Camera follow-driver mode with smart bounds, dark map style
-- Trip history and a per-trip safety-event timeline
-- Widget/golden tests for alert and SOS states; integration test for the demo flow
-- Accessibility pass (semantics, contrast, large-font layouts) and broader
-  device testing
-- Crash reporting + analytics
+All driver movement is simulated with deterministic local mock data — no
+backend, authentication, or real GPS is required. The SOS flow is fully
+simulated; no real emergency service is contacted.
