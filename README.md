@@ -46,6 +46,9 @@ an SOS with an explicit confirmation step.
 
 ```bash
 flutter pub get
+git clone https://github.com/Shoaib20786/gts_parent_tracking.git
+cd gts_parent_tracking
+flutter pub get
 flutter run
 ```
 
@@ -87,3 +90,12 @@ would apply.
 All driver movement is simulated with deterministic local mock data — no
 backend, authentication, or real GPS is required. The SOS flow is fully
 simulated; no real emergency service is contacted.
+
+## What was hard
+Making the demo deterministic without making it fake. Every value on screen (position, speed, ETA, alerts) is derived from an index into a mock timeline that a `Timer` advances, so the demo controls and the unit tests drive exactly the same seek path. The "location lost" alert is not scripted: the provider detects N unchanged ticks, the same rule a real backend would apply. The driver marker also had to glide between updates without fighting `flutter_map` rebuilds.
+
+## Status
+Prototype, complete · Last updated August 2026
+
+## Licence
+MIT
